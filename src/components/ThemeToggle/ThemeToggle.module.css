@@ -1,0 +1,59 @@
+/* Position the toggle fixed in the viewport */
+.themeToggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;               /* Always on top */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;                 /* Space between icon & text */
+    padding: 0.5rem 1rem;        /* Comfortable click area */
+    background-color: var(--bg-button);
+    color: var(--text-button);
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  /* Icon-only variant on very small screens */
+  @media (max-width: 360px) {
+    .themeToggle {
+      padding: 0.4rem;
+      font-size: 1.2rem;         /* Only icon is shown */
+      gap: 0;
+      width: 2.4rem;
+      justify-content: center;
+    }
+    .themeToggle span {          /* Hide text on tiny screens */
+      display: none;
+    }
+  }
+  
+  /* Hover/active feedback */
+  .themeToggle:hover {
+    transform: translateY(-2px);
+  }
+  .themeToggle:active {
+    transform: translateY(0) scale(0.96);
+  }
+  
+  /* LIGHT THEME */
+  .light {
+    --bg-button: #007bff;
+    --text-button: #fff;
+  }
+  .light:hover {
+    --bg-button: #0056b3;
+  }
+  
+  /* DARK THEME */
+  .dark {
+    --bg-button: #66b2ff;
+    --text-button: #222;
+  }
+  .dark:hover {
+    --bg-button: #3399ff;
+  }
+  

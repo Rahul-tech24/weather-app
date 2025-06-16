@@ -1,0 +1,213 @@
+/* ===== Base Styling ===== */
+.weatherContainer {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.weatherContainer h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== Form Styling ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input[type='text'] {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type='text']:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
+}
+
+button {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  transform: scale(1.03);
+}
+
+/* ===== Suggestions Dropdown ===== */
+.suggestionList {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestionList li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.suggestionList li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Weather Display ===== */
+.weatherDisplay {
+  margin-top: 2rem;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.weatherDisplay img {
+  width: 100px;
+  height: 100px;
+}
+
+/* ===== History Section ===== */
+.history {
+  margin-top: 2rem;
+}
+
+.history h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.cityItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.cityItem:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cityItem span {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ===== Loading and Error States ===== */
+.loading,
+.error {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.loading {
+  color: #0077ff;
+}
+
+.error {
+  color: red;
+}
+
+/* ===== Theme: Light ===== */
+.light {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* ===== Theme: Dark ===== */
+.dark {
+  background-color: #1c1c1e;
+  color: #f0f0f0;
+}
+
+.dark input[type='text'] {
+  background-color: #2c2c2e;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+.dark .suggestionList {
+  background-color: #2a2a2c;
+  color: #eee;
+}
+
+.dark .cityItem {
+  background-color: #2c2c2e;
+}
+
+.dark .cityItem:hover {
+  background-color: #38383a;
+}
+
+.dark button {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+}
+
+.dark button:hover {
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 600px) {
+  .weatherContainer {
+    padding: 1rem;
+  }
+
+  .suggestionList {
+    font-size: 0.9rem;
+  }
+
+  .weatherDisplay img {
+    width: 80px;
+    height: 80px;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+}
+.locationButton {
+  margin-top: 0.5rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.locationButton:hover {
+  background-color: var(--accent-dark);
+}
