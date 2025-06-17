@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react'
 import styles from './Weather.module.css'
 
@@ -43,7 +41,7 @@ const Weather = ({ theme }) => {
         setdata(null);
         try {
             const city = cityInput.split(",")[0].trim() || "delhi";
-            const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+            const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
             const response = await fetch(url)
             if (!response.ok) {
@@ -74,7 +72,7 @@ const Weather = ({ theme }) => {
                 return;
             }
             try {
-              const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+              const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
                 const response = await fetch(
                     `https://api.openweathermap.org/geo/1.0/direct?q=${debouncedInput}&limit=5&appid=${apiKey}`
                 );
@@ -119,7 +117,7 @@ const Weather = ({ theme }) => {
           async (position) => {
             const { latitude, longitude } = position.coords;
             try {
-              const apiKey = "ba909ad025584565445216f6e6d1d564";
+              const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
               const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
               const response = await fetch(url);
               if (!response.ok) throw new Error("Failed to fetch weather for your location");
@@ -161,8 +159,19 @@ const Weather = ({ theme }) => {
 
   return (
     <div className={`${styles.weatherContainer} ${styles[theme]}`}>
-          <h1>weather search</h1>
+          <div className={styles.headerSection}>
+            <h1>weather search</h1>
+            <button
+              type="button"
+              onClick={handleLocationClick}
+              className={styles.locationButton}
+            >
+              📍 use my location
+            </button>
+          </div>
+          
           <form
+               className={styles.horizontalSearchForm}
                onSubmit={(e) => {
                 e.preventDefault();
                 if (!cityInput.trim()) return alert("Please enter a city name");
@@ -172,6 +181,7 @@ const Weather = ({ theme }) => {
                >
                   <input
                       type="text"
+                      className={styles.cityInput}
                       onChange={(e)=>setCityInput(e.target.value)}
                       id='city'
                       name='city'
@@ -179,15 +189,9 @@ const Weather = ({ theme }) => {
                       required
                       placeholder='Enter city...'
               />
-              <button
-  type="button"
-  onClick={handleLocationClick}
-  className={styles.locationButton}
->
-  📍 Use My Location
-</button>
-            {suggestions.length > 0 && (
-  <ul className="suggestionList">
+              
+              {suggestions.length > 0 && (
+  <ul className={styles.suggestionList}>
   {suggestions.map((item, index) => (
     <li
       key={index}
@@ -204,7 +208,7 @@ const Weather = ({ theme }) => {
 </ul>
 )}
               
-             <button type='submit' >Search</button>
+             <button type='submit' className={styles.searchButton}>Search</button>
           </form>
     
           {loading && <div className={styles.loading} >Loading...</div>}
@@ -242,5 +246,4 @@ const Weather = ({ theme }) => {
 }
 
 export default Weather;
-
 

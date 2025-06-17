@@ -1,213 +1,588 @@
-/* ===== Base Styling ===== */
+/* CSS Variables for theming */
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary-color: #06b6d4;
+  --accent-color: #f59e0b;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  
+  /* Light theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Weather-specific colors */
+  --sunny-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --cloudy-bg: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  --rainy-bg: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+  --snowy-bg: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+  
+  /* Button gradients - User's specified colors */
+  --button-gradient: linear-gradient(135deg, #feda75 0%, #d62976 25%, #962fbf 75%, #4f5bd5 100%);
+  --button-gradient-hover: linear-gradient(135deg, #f4d06a 0%, #c4256a 25%, #8a2ba8 75%, #4752c4 100%);
+}
+
+/* Dark theme */
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --border-color: #334155;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  
+  /* Dark theme button gradients - Same vibrant colors */
+  --button-gradient: linear-gradient(135deg, #feda75 0%, #d62976 25%, #962fbf 75%, #4f5bd5 100%);
+  --button-gradient-hover: linear-gradient(135deg, #e6c45f 0%, #b82465 25%, #7e2a9e 75%, #3f4ab0 100%);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Main container */
 .weatherContainer {
-  max-width: 600px;
-  margin: auto;
-  padding: 2rem;
-  border-radius: 1.5rem;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.4s ease, color 0.4s ease;
-  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: all 0.3s ease;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
+/* Header section */
+.headerSection {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Header */
 .weatherContainer h1 {
-  font-size: 2rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  background: var(--button-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin: 0;
+  letter-spacing: -0.025em;
+  text-transform: capitalize;
 }
 
-/* ===== Form Styling ===== */
-form {
+/* Form styling */
+.searchForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-input[type='text'] {
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input[type='text']:focus {
-  outline: none;
-  border-color: #0077ff;
-  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
-}
-
-button {
-  padding: 0.75rem 1rem;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background: linear-gradient(to right, #00f2fe, #4facfe);
-  transform: scale(1.03);
-}
-
-/* ===== Suggestions Dropdown ===== */
-.suggestionList {
-  list-style: none;
-  margin: 0;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  position: absolute;
-  z-index: 10;
   width: 100%;
-  max-height: 200px;
+  max-width: 500px;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+/* Input styling */
+.cityInput {
+  padding: 1rem 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 1rem;
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  outline: none;
+  font-weight: 500;
+  width: 100%;
+}
+
+.cityInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.1);
+  transform: translateY(-2px);
+}
+
+.cityInput::placeholder {
+  color: var(--text-muted);
+}
+
+/* Button styling - Using gradient */
+.searchButton {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--button-gradient);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.searchButton:hover {
+  background: var(--button-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.searchButton:active {
+  transform: translateY(0);
+}
+
+/* Location button - Using same gradient */
+.locationButton {
+  background: var(--button-gradient) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  text-transform: lowercase;
+  letter-spacing: 0.025em;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.locationButton:hover {
+  background: var(--button-gradient-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Horizontal search form */
+.horizontalSearchForm {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.horizontalSearchForm .cityInput {
+  flex: 1;
+  margin: 0;
+}
+
+.horizontalSearchForm .searchButton {
+  width: auto;
+  min-width: 80px;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+
+/* Suggestions list */
+.suggestionList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  max-height: 300px;
   overflow-y: auto;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
 }
 
 .suggestionList li {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .suggestionList li:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background: var(--bg-tertiary);
+  color: var(--primary-color);
 }
 
-/* ===== Weather Display ===== */
-.weatherDisplay {
-  margin-top: 2rem;
+/* Loading and error states */
+.loading, .error {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-weight: 600;
   text-align: center;
-  transition: all 0.3s ease-in-out;
+  animation: fadeIn 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem 0;
 }
 
-.weatherDisplay img {
-  width: 100px;
-  height: 100px;
+.loading {
+  background: var(--warning-color);
+  color: white;
+  position: relative;
 }
 
-/* ===== History Section ===== */
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.error {
+  background: var(--error-color);
+  color: white;
+}
+
+/* Weather display */
+.weatherDisplay {
+  background: var(--bg-secondary);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  margin: 1rem 0;
+}
+
+.weatherDisplay:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.weatherDisplay h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.weatherDisplay p {
+  font-size: 1.1rem;
+  margin: 0.75rem 0;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.weatherIcon {
+  width: 80px;
+  height: 80px;
+  margin: 1rem 0;
+  filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.1));
+}
+
+/* Weather info specific styling */
+.temperature {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  color: var(--primary-color) !important;
+  margin: 1rem 0 !important;
+}
+
+.condition {
+  font-size: 1.2rem !important;
+  color: var(--text-primary) !important;
+  text-transform: capitalize;
+  margin: 0.5rem 0 1rem 0 !important;
+}
+
+.weatherDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.weatherDetails p {
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* History section */
 .history {
-  margin-top: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid var(--border-color);
+  margin-top: 1rem;
 }
 
 .history h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+  text-align: center;
 }
 
 .cityItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  transition: background-color 0.3s ease;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  background: var(--bg-tertiary);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .cityItem:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
 }
 
 .cityItem span {
   cursor: pointer;
   font-weight: 500;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
 }
 
-/* ===== Loading and Error States ===== */
-.loading,
-.error {
-  margin-top: 1rem;
+.cityItem span:hover {
+  color: var(--primary-color);
+}
+
+.cityItem button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+}
+
+.cityItem button:hover {
+  background: var(--bg-primary);
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.noHistory {
   text-align: center;
-  font-weight: bold;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 1rem 0;
 }
 
-.loading {
-  color: #0077ff;
+/* Form container styling */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
 }
 
-.error {
-  color: red;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ===== Theme: Light ===== */
-.light {
-  background-color: #f9f9f9;
-  color: #333;
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }
 
-/* ===== Theme: Dark ===== */
-.dark {
-  background-color: #1c1c1e;
-  color: #f0f0f0;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-.dark input[type='text'] {
-  background-color: #2c2c2e;
-  color: #f0f0f0;
-  border: 1px solid #555;
-}
-
-.dark .suggestionList {
-  background-color: #2a2a2c;
-  color: #eee;
-}
-
-.dark .cityItem {
-  background-color: #2c2c2e;
-}
-
-.dark .cityItem:hover {
-  background-color: #38383a;
-}
-
-.dark button {
-  background: linear-gradient(to right, #8e2de2, #4a00e0);
-}
-
-.dark button:hover {
-  background: linear-gradient(to right, #4a00e0, #8e2de2);
-}
-
-/* ===== Responsive Design ===== */
-@media (max-width: 600px) {
+/* Responsive design */
+@media (max-width: 768px) {
   .weatherContainer {
+    padding: 0.5rem;
+    gap: 1.5rem;
+  }
+  
+  .weatherContainer h1 {
+    font-size: 2rem;
+  }
+  
+  .weatherDisplay, .history {
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .weatherDisplay h2 {
+    font-size: 1.5rem;
+  }
+  
+  .temperature {
+    font-size: 2rem !important;
+  }
+  
+  .searchForm, .formContainer {
+    max-width: 100%;
+  }
+  
+  .cityInput {
+    padding: 0.875rem 1.25rem;
+  }
+  
+  .searchButton, .locationButton {
+    padding: 0.875rem 1.5rem;
+  }
+  
+  .weatherDetails {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .weatherContainer {
+    padding: 0.25rem;
+    gap: 1rem;
+  }
+  
+  .weatherDisplay, .history {
     padding: 1rem;
   }
-
-  .suggestionList {
+  
+  .weatherContainer h1 {
+    font-size: 1.75rem;
+  }
+  
+  .weatherDisplay h2 {
+    font-size: 1.25rem;
+  }
+  
+  .temperature {
+    font-size: 1.75rem !important;
+  }
+  
+  .weatherIcon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .weatherDetails {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .weatherDetails p {
     font-size: 0.9rem;
   }
-
-  .weatherDisplay img {
-    width: 80px;
-    height: 80px;
-  }
-
-  button {
-    font-size: 0.95rem;
-  }
-}
-.locationButton {
-  margin-top: 0.5rem;
-  background-color: var(--accent);
-  color: var(--bg);
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
 }
 
-.locationButton:hover {
-  background-color: var(--accent-dark);
+/* Weather condition specific backgrounds */
+.weatherContainer[data-weather="Clear"] {
+  background: var(--sunny-bg);
+}
+
+.weatherContainer[data-weather="Clouds"] {
+  background: var(--cloudy-bg);
+}
+
+.weatherContainer[data-weather="Rain"] {
+  background: var(--rainy-bg);
+}
+
+.weatherContainer[data-weather="Snow"] {
+  background: var(--snowy-bg);
+}
+
+/* Focus states for accessibility */
+.weatherContainer button:focus,
+.weatherContainer input:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+.suggestionList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.suggestionList::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+}
+
+.suggestionList::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+.suggestionList::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
